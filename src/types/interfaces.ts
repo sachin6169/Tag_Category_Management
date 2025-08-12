@@ -1,31 +1,29 @@
-export interface IBaseModel {
-  id: string;
-  createdAt: string;
-  lastUpdatedAt: string;
-  deleted?: boolean;
-}
+// interfaces.ts
+export type StatusType = "active" | "inactive" | "ACTIVE" | "INACTIVE";
 
-export enum precisionType {
-  HIGH = "High",
-  MEDIUM = "Medium",
-  LOW = "Low",
-}
-
-export interface IMetadataConfig {
-  key: string;
+export interface IGroup {
+  label: string;
   value: string;
 }
 
 export interface ISubCategory {
-  id: string;
-  name: string;
+  label: string;
+  config: any[];
 }
 
-export interface ITagCategory extends IBaseModel {
+export interface ITagCategory {
+  id: string;
+  gameId: string;
+  group: IGroup;
+  isParentTag: boolean;
+  isReplay: boolean;
+  metadataConfig: any[];
   name: string;
-  status: "active" | "inactive";
-  precisionType: PrecisionType;
-  group: string;
-  metadataConfig: IMetadataConfig[];
-  subCategories: ISubCategory[];
+  nameStructure: string[];
+  precisionType: string;
+  status: StatusType;
+  subCategories: Record<string, ISubCategory>;
+  createdAt: string;
+  lastUpdatedAt?: string;
+  deleted: boolean;
 }

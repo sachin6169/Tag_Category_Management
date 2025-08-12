@@ -1,10 +1,17 @@
-import  { useState } from "react";
+import { useState } from "react";
 import styles from "./App.module.scss";
-
-import sampleData from "./data/sampleData.json";
+import sampleDataRaw from "./data/sampleData.json";
+import type { ITagCategory, StatusType } from "./types/interfaces";
 import TagCategoryCard from "./components/TagCategoryCard/TagCategoryCard";
 import TagCategoryForm from "./components/TagCategoryForm/TagCategoryForm";
-import type { ITagCategory } from "./types/interfaces";
+
+
+const sampleData: ITagCategory[] = sampleDataRaw.map((cat) => ({
+  ...cat,
+  status: cat.status as StatusType, // ✅ cast to StatusType
+  createdAt: cat.createdAt || new Date().toISOString(),
+  lastUpdatedAt: cat.lastUpdatedAt || new Date().toISOString(),
+}));
 
 export default function App() {
   const [categories, setCategories] = useState<ITagCategory[]>(sampleData);
@@ -12,7 +19,6 @@ export default function App() {
 
   const handleCreateOrUpdate = (category: ITagCategory) => {
     if (editingCategory) {
-      // Update
       setCategories((prev) =>
         prev.map((c) =>
           c.id === category.id ? { ...category, lastUpdatedAt: new Date().toISOString() } : c
@@ -20,7 +26,6 @@ export default function App() {
       );
       setEditingCategory(null);
     } else {
-      // Create
       setCategories((prev) => [...prev, category]);
     }
   };
@@ -33,20 +38,13 @@ export default function App() {
 
   const handleEdit = (id: string) => {
     const category = categories.find((c) => c.id === id);
-    if (category) {
-      setEditingCategory(category);
-    }
+    if (category) setEditingCategory(category);
   };
 
   return (
     <div className={styles.container}>
       <h1>Tag Category Management</h1>
-
-      <TagCategoryForm
-        onSubmit={handleCreateOrUpdate}
-        initialData={editingCategory || undefined}
-      />
-
+      <TagCategoryForm onSubmit={handleCreateOrUpdate} initialData={editingCategory || undefined} />
       <div className={styles.cardGrid}>
         {categories.map((category) => (
           <TagCategoryCard

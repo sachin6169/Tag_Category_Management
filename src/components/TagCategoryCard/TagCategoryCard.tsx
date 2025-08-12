@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./TagCategoryCard.module.scss";
 import type { ITagCategory } from "../../types/interfaces";
 
@@ -14,7 +13,7 @@ export default function TagCategoryCard({ category, onEdit, onDelete }: Props) {
       <h2>{category.name}</h2>
       <p>Status: {category.status}</p>
       <p>Precision: {category.precisionType}</p>
-      <p>Group: {category.group?.label}</p> {/* ✅ fix */}
+    <p>Group: {category.group?.label}</p>
       <div className={styles.actions}>
         <button onClick={() => onEdit(category.id)}>Edit</button>
         <button onClick={() => onDelete(category.id)}>Delete</button>

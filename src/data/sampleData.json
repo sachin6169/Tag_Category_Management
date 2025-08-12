@@ -64,8 +64,8 @@
       "eventId",
       "over"
     ],
-    "precisionType": "LONG",
-    "status": "ACTIVE",
+    "precisionType": "HIGH",
+    "status": "active",
     "subCategories": {
       "no-ball": {
         "label": "No Ball",
@@ -110,7 +110,8 @@
         ]
       }
     },
-    "createdAt": 1754571732334,
+    "createdAt": "2024-08-12T10:00:00.000Z",
+    "lastUpdatedAt": "2024-08-12T10:00:00.000Z",
     "deleted": false
   }
 ]
